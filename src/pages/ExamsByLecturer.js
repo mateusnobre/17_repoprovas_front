@@ -3,7 +3,7 @@ export default function ExamsByLecturer() {
     return(
         <ExamsByLecturerBox>
             <Title>
-                RepoProvas
+                Escolha o Professor
             </Title>
         </ExamsByLecturerBox>
     )

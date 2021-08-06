@@ -1,9 +1,13 @@
 import styled from 'styled-components'
+import Button from '../components/Button'
+import axios from 'axios';
+import BaseURL from '../components/BaseURL'
+
 export default function ExamsByCourse() {
     return(
         <ExamsByCourseBox>
             <Title>
-                RepoProvas
+                Escolha a Matéria
             </Title>
         </ExamsByCourseBox>
     )

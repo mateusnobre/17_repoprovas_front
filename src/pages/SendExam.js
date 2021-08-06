@@ -1,10 +1,13 @@
 import styled from 'styled-components'
+import SendExamForm from '../components/SendExamForm'
+
 export default function SendExams() {
     return(
         <SendExamsBox>
             <Title>
-                SendExams
+                Envie Sua Prova Aqui
             </Title>
+            <SendExamForm/>
         </SendExamsBox>
     )
 }
@@ -17,6 +20,7 @@ const SendExamsBox = styled.div`
 `
 
 const Title = styled.div`
+    margin-top: 50px;
     font-size: 50px;
     font-weight: 700;
 `

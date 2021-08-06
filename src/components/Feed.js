@@ -3,33 +3,25 @@ import { useState, useEffect } from "react";
 import axios from 'axios';
 import BaseURL from './BaseURL'
 
-export default function ExamFeed(){
+export default function ExamFeed(props){
     const [exams, setExams] = useState([]);
-    const [currentSum, setCurrentSum] = useState(0);
     function loadExams () {
         const response = axios.get(BaseURL+'/exams');
         response.then( (res) => {
             setExams([...res.data])
-            setCurrentSum(exams.map((t) => (t.value)).reduce(getSum, 0))
         })
     }
     
     useEffect(loadExams, [exams]);
-
-    function getSum(total, num) {
-      return total + num;
-    }
+    
     return(
         <ExamFeedBox>
-            {exams.map((t) => (
+            {exams.map((e) => (
               <Exam
-                value={t.value.toFixed(2)}
-                description={t.comment}
-                date={dayjs(t.created_at).format('DD/MM')}
+                name={e.name}
+                url={e.url}
               />
             ))}
-            <Text>SALDO</Text>
-            <Funds sum={currentSum}>R$ {currentSum.toFixed(2)} </Funds>
         </ExamFeedBox>
     )
 }
@@ -50,6 +42,7 @@ const ExamFeedBox = styled.div`
     border-radius: 5px;
     overflow-y: scroll;
 `
+
 const Text = styled.div`
     position: absolute;
     color: black;
