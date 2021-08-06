@@ -12,9 +12,34 @@ export default function SendExamForm(){
     const [url, setURL] = useState("");
     const history = useHistory();
     const [categories, setCategories] = useState([])
-    const [course, setCourses] = useState([])
+    const [courses, setCourses] = useState([])
     const [lecturers, setLecturers] = useState([])
 
+    function loadCategories () {
+        const response = axios.get(baseUrl+'/categories');
+        response.then( (res) => {
+            setCategories([...res.data])
+        })
+    }
+    function loadCourses () {
+        const response = axios.get(baseUrl+'/courses');
+        response.then( (res) => {
+            setCourses([...res.data])
+        })
+    }
+    function loadLecturers () {
+        const response = axios.get(baseUrl+'/lecturers');
+        response.then( (res) => {
+            setLecturers([...res.data])
+        })
+    }
+    function loadData (){
+        loadCategories();
+        loadCourses();
+        loadLecturers();
+    }
+
+    useEffect(loadData, []);
     function trySendExam(event){
         event.preventDefault();        
         if (!name || !url) {
@@ -40,13 +65,13 @@ export default function SendExamForm(){
                 <Input type='text' placeholder='Descrição' input={name} setInput={setName}/>
                 <Input type='url' placeholder='URL do PDF' input={url} setInput={setURL}/>
                 <DropdownBox>
-                    <DropdownInput title='Tipo de Prova'/>
+                    <DropdownInput title='Tipo de Prova' items={categories}/>
                 </DropdownBox>
                 <DropdownBox>
-                    <DropdownInput title='Matéria'/>
+                    <DropdownInput title='Matéria' items={courses}/>
                 </DropdownBox>
                 <DropdownBox>
-                    <DropdownInput title='Professor'/>
+                    <DropdownInput title='Professor' items={lecturers}/>
                 </DropdownBox>
                 <FormsButton text='Enviar prova'/>
             </form>

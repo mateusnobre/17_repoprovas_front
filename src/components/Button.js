@@ -4,7 +4,7 @@ import colors from  './Colors'
 export default function Button(props){
     return(
         <ButtonBox>
-            <Link to={props.route}>
+            <Link onClick={props.onClick} to={props.route}>
                 {props.text}
             </Link>
         </ButtonBox>

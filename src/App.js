@@ -10,8 +10,9 @@ import ExamsByCourse from './pages/ExamsByCourse'
 import ExamsByLecturer from './pages/ExamsByLecturer'
 import SeeExams from "./pages/SeeExams";
 import SendExam from './pages/SendExam'
-import FilterContext from "./FilterContext";
+import ExamsFeed from './pages/ExamsFeed'
 
+import FilterContext from "./FilterContext";
 import "./assets/styles/reset.css";
 import "./assets/styles/style.css";
 import { useState } from 'react';
@@ -39,6 +40,9 @@ export default function App() {
         </Route>
         <Route path="/new-exam/">
           <SendExam />
+        </Route>
+        <Route path="/exams-feed/:id">
+          <ExamsFeed />
         </Route>
       </Switch>
     </Router>

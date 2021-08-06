@@ -5,37 +5,40 @@ import axios from 'axios';
 import BaseURL from '../components/BaseURL'
 import {Link} from 'react-router-dom'
 
-export default function ExamsByCourse() {
-    const [courses, setCourses] = useState([]);
-    function loadCourses () {
-        const response = axios.get(BaseURL+'/courses');
+export default function ExamsFeed() {
+    const [exams, setExams] = useState([]);
+    function loadExams () {
+        const response = axios.get(BaseURL+'/exams');
         response.then( (res) => {
-            setCourses([...res.data])
+            setExams([...res.data])
         })
     }
-    
-    useEffect(loadCourses, [courses]);
+    const openInNewTab = (url) => {
+      const newWindow = window.open(url, '_blank', 'noopener,noreferrer')
+      if (newWindow) newWindow.opener = null
+    }
+    useEffect(loadExams, [exams]);
 
     return(
-        <ExamsByCourseBox>
+        <ExamsFeedBox>
             <Title>
                 Escolha a Matéria
             </Title>
 
-            {courses.map((c) => (
+            {exams.map((e) => (
               <Button
-                text={c.name}
-                route={`/exams-feed/${c.id}`}
+                onClick={() => openInNewTab(e.url)}
+                text={e.name}
               />
             ))}
             <Link to='/'>
                 Voltar a página inicial
             </Link>
-        </ExamsByCourseBox>
+        </ExamsFeedBox>
     )
 }
 
-const ExamsByCourseBox = styled.div`
+const ExamsFeedBox = styled.div`
     display: flex;
     width: 100vw;
     flex-direction: column;
