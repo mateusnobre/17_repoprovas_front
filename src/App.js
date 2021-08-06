@@ -31,10 +31,10 @@ export default function App() {
         <Route path="/exams">
           <SeeExams />
         </Route>
-        <Route path="/exams/by-lecturer">
+        <Route path="/exams-by-lecturer">
           <ExamsByLecturer />
         </Route>
-        <Route path="/exams/by-course">
+        <Route path="/exams-by-course">
           <ExamsByCourse />
         </Route>
         <Route path="/new-exam/">
