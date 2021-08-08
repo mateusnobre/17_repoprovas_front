@@ -11,6 +11,7 @@ import ExamsByLecturer from './pages/ExamsByLecturer'
 import SeeExams from "./pages/SeeExams";
 import SendExam from './pages/SendExam'
 import ExamsFeedByCourse from './pages/ExamsFeedByCourse'
+import ExamsFeedByLecturer from './pages/ExamsFeedByLecturer'
 
 import FilterContext from "./FilterContext";
 import "./assets/styles/reset.css";
@@ -41,8 +42,11 @@ export default function App() {
         <Route path="/new-exam/">
           <SendExam />
         </Route>
-        <Route path="/exams-feed-by-course/:id">
+        <Route path="/exams-feed-by-course/:courseId">
           <ExamsFeedByCourse />
+        </Route>
+        <Route path="/exams-feed-by-lecturer/:lecturerId">
+          <ExamsFeedByLecturer />
         </Route>
       </Switch>
     </Router>

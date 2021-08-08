@@ -5,24 +5,30 @@ import axios from 'axios';
 import BaseURL from '../components/BaseURL'
 import {Link, useParams} from 'react-router-dom'
 
-export default function ExamsFeedByCourse() {
+export default function ExamsFeedByLecturer() {
     const [exams, setExams] = useState([]);
-    const { courseId } = useParams();
+    const { lecturerId } = useParams();
 
     function loadExams () {
         const response = axios.get(BaseURL+'/exams');
         response.then( (res) => {
-            console.log(parseInt(courseId))
-            const filteredCourses = res.data.filter(e => e.course.id === parseInt(courseId))
-            console.log(filteredCourses)
-            setExams([...filteredCourses])
+            const courseList = axios.get(BaseURL+'/courses');
+            const exams = res.data
+            courseList.then( (c) => {
+                const courses = c.data;
+                for (let i = 0; i < exams.length; i++){
+                    exams[i].lecturer = courses.filter(co => co.id === exams[i].course.id)[0].lecturer
+                }
+                const filteredLecturers = exams.filter(e => e.lecturer.id === parseInt(lecturerId))
+                setExams([...filteredLecturers])
+            })
         })
     }
     const openInNewTab = (url) => {
       const newWindow = window.open(url, '_blank', 'noopener,noreferrer')
       if (newWindow) newWindow.opener = null
     }
-    useEffect(loadExams, [courseId]);
+    useEffect(loadExams, [lecturerId]);
 
     return(
         <ExamsFeedBox>

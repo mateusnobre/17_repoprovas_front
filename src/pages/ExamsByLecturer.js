@@ -25,7 +25,7 @@ export default function ExamsByLecturer() {
             {lecturers.map((l) => (
               <Button
                 text={l.name}
-                route={`/exams-feed/${l.id}`}
+                route={`/exams-feed-by-lecturer/${l.id}`}
               />
             ))}
 
