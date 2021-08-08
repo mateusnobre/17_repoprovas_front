@@ -15,6 +15,10 @@ export default function SendExamForm(){
     const [courses, setCourses] = useState([])
     const [lecturers, setLecturers] = useState([])
 
+    const [chosenCategory, setChosenCategory] = useState({id: -1, name: ""})
+    const [chosenCourse, setChosenCourse] = useState({id: -1, name: ""})
+    const [chosenLecturer, setChosenLecturer] = useState({id: -1, name: ""})
+
     function loadCategories () {
         const response = axios.get(baseUrl+'/categories');
         response.then( (res) => {
@@ -28,27 +32,32 @@ export default function SendExamForm(){
         })
     }
     function loadLecturers () {
-        const response = axios.get(baseUrl+'/lecturers');
-        response.then( (res) => {
-            setLecturers([...res.data])
-        })
-    }
-    function loadData (){
-        loadCategories();
-        loadCourses();
-        loadLecturers();
+        if (chosenCourse.id !== -1){
+            setLecturers([courses.filter(course => course.id === chosenCourse.id)[0].lecturer])
+        }
+        else {
+            const response = axios.get(baseUrl+'/lecturers');
+            response.then( (res) => {
+                setLecturers([...res.data])
+            })
+        }
     }
 
-    useEffect(loadData, []);
+
+    useEffect(loadCategories, []);
+    useEffect(loadCourses, []);
+    useEffect(loadLecturers, [chosenCourse.id]);
     function trySendExam(event){
         event.preventDefault();        
-        if (!name || !url) {
+        if (!name || !url || chosenCourse === "" || chosenCategory === "") {
           alert("Prencha os campos");
         }
         else {
             axios.post(baseUrl+'/exams', {
                 name: name,
-                url: url
+                url: url,
+                courseId: chosenCourse.id,
+                categoryId: chosenCategory.id 
             })
             .then((res) => {
                 if (res.status === 201){
@@ -65,13 +74,13 @@ export default function SendExamForm(){
                 <Input type='text' placeholder='Descrição' input={name} setInput={setName}/>
                 <Input type='url' placeholder='URL do PDF' input={url} setInput={setURL}/>
                 <DropdownBox>
-                    <DropdownInput title='Tipo de Prova' items={categories}/>
+                    <DropdownInput setInput={setChosenCategory} title='Tipo de Prova' items={categories}/>
                 </DropdownBox>
                 <DropdownBox>
-                    <DropdownInput title='Matéria' items={courses}/>
+                    <DropdownInput setInput={setChosenCourse} title='Matéria' items={courses}/>
                 </DropdownBox>
                 <DropdownBox>
-                    <DropdownInput title='Professor' items={lecturers}/>
+                    <DropdownInput setInput={setChosenLecturer} title='Professor' items={lecturers}/>
                 </DropdownBox>
                 <FormsButton text='Enviar prova'/>
             </form>

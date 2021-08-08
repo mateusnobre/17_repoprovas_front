@@ -5,7 +5,7 @@ import axios from 'axios';
 import BaseURL from '../components/BaseURL'
 import {Link} from 'react-router-dom'
 
-export default function ExamsFeed() {
+export default function ExamsFeedByCourse() {
     const [exams, setExams] = useState([]);
     function loadExams () {
         const response = axios.get(BaseURL+'/exams');
