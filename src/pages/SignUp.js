@@ -13,7 +13,7 @@ export default function SignUp() {
                     Já tem uma conta? Entre agora!
                 </LoginShortcut>
             </Link>
-            <Link to='/login' style={{ textDecoration: 'none'}}>
+            <Link to='/' style={{ textDecoration: 'none'}}>
                 <LoginShortcut>
                     Volte para o Menu Principal
                 </LoginShortcut>
