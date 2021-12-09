@@ -8,7 +8,7 @@ export default function SignUp() {
         <LoginBox>
             <Title/>
             <SignUpForm/>
-            <Link to='/login' style={{ textDecoration: 'none'}}>
+            <Link to='/sign-in' style={{ textDecoration: 'none'}}>
                 <LoginShortcut>
                     Já tem uma conta? Entre agora!
                 </LoginShortcut>
