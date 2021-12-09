@@ -6,6 +6,8 @@ import {
 } from "react-router-dom";
 
 import Home from "./pages/Home";
+import SignIn from './pages/Login'
+import SignUp from './pages/SignUp'
 import ExamsByCourse from './pages/ExamsByCourse'
 import ExamsByLecturer from './pages/ExamsByLecturer'
 import SeeExams from "./pages/SeeExams";
@@ -26,6 +28,12 @@ export default function App() {
       <Switch>
         <Route path="/" exact>
           <Redirect to="/home" />
+        </Route>
+        <Route path="/sign-in" exact>
+          <SignIn />
+        </Route>
+        <Route path="/sign-up" exact>
+          <SignUp />
         </Route>
         <Route path="/home" exact>
           <Home />
